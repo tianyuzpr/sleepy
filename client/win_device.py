@@ -200,7 +200,7 @@ Url = f'{SERVER}/api/device/set'
 last_window = ''
 
 
-async def send_status(using: bool = True, app_name: str = '', id: str = DEVICE_ID, show_name: str = DEVICE_SHOW_NAME, timeout: float = 7.5, **kwargs):
+async def send_status(using: bool = True, status: str = '', id: str = DEVICE_ID, show_name: str = DEVICE_SHOW_NAME, timeout: float = 7.5, **kwargs):
     '''
     httpx.AsyncClient.post 发送设备状态信息
     设置了 headers 和 proxies
