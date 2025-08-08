@@ -14,8 +14,9 @@
   - [LinuxScriptKDE](#LinuxScriptKDE) *(KDE Python 脚本)*
   - [LinuxScriptHyprland](#LinuxScriptHyprland) *(Hyprland 原生脚本)*
 
-**MacOS**:
-  - [AppleShortcuts](#AppleShortcuts)
+**IOS/MacOS**:
+  - [AppleShortcuts](#AppleShortcuts) *(需要快捷指令拥有“获取前台 App”命令)*
+  - [AppleScript](#AppleScript) *(支持macOS 10.9+)*
 
 **CLI** (命令行):
   - [HomeworkDevice](#HomeworkDevice)
@@ -62,6 +63,15 @@
   - [CmdConsoleMulti](#cmdconsolemulti)
     - [配置](#配置-6)
     - [使用](#使用-4)
+- [IOSMacOS](#iosmacos)
+  - [AppleShortcuts](#appleshortcuts)
+    - [FullVer](#fullver)
+    - [FastVer](#fastver)
+  - [AppleScript](#AppleScript)
+    - [mac_device_sleepy_AS](#mac_device_sleepy_AS)
+      - [说明](#说明)
+      - [使用](#使用-5)
+      - [加入启动项开机启动](#加入启动项开机启动)
 - [Others](#others)
   - [MinecraftScript](#minecraftscript)
     - [Minescript](#minescript)
@@ -80,9 +90,6 @@
   - [Win\_Simple](#win_simple-1)
     - [配置](#配置-11)
     - [使用](#使用-9)
-  - [AppleShortcuts](#appleshortcuts)
-    - [FullVer](#fullver)
-    - [FastVer](#fastver)
   - [Zhixuewang](#zhixuewang)
     - [配置](#配置-12)
     - [使用](#使用-10)
@@ -336,7 +343,7 @@ https://github.com/sleepy-project/sleepy/blob/7fc21380a259247533db76f3a0443fa550
 > 开机自启可自行在 `hyprland.conf` 中配置 <br/>
 > **注意: 需要给脚本加上可执行权限 *(`chmod +x`)*, 否则无法运行!**
 
-# MacOS
+# IOS/MacOS
 
 ## [AppleShortcuts](https://github.com/Detritalw/Sleepy-Client-Shortcuts)
 
@@ -359,6 +366,56 @@ https://github.com/sleepy-project/sleepy/blob/7fc21380a259247533db76f3a0443fa550
 
 > [!TIP]
 > 你可以将该快捷指令设置为操作按钮、控制中心按钮、锁定屏幕按钮、敲击 2 / 3 下背板指令来快捷使用
+
+## [AppleScript](https://github.com/sleepy-project/sleepy/blob/main/client/mac_device_sleepy_AS.zip)
+
+> 支持macOS 10.9+
+> 
+> by: [@wan0ge](https://github.com/wan0ge) & AI
+
+### [mac_device_sleepy_AS](https://github.com/sleepy-project/sleepy/blob/main/client/mac_device_sleepy_AS.zip)
+
+#### 说明
+
+使用 [AppleScript](https://zh.wikipedia.org/zh-cn/AppleScript) 编写的mac os自动更新状态脚本
+
+因为检测锁屏和关机前上报未在使用实现困难，分为两个脚本，`mac_device_sleepy_AS`为主脚本，`mac_device_sleepy_AS_false`为停止并上报脚本
+
+主脚本也支持长时间窗口无变化上报未在使用、忽略特定窗口/进程，如果觉得关机前启动副脚本不够便利也可以搭配快捷指令使用，创建一个快捷指令选择“运行AppleScript”和“关机”就可以当一个伪一键关机脚本使用，或者其他方式搭配“运行AppleScript”使用
+
+#### 使用
+
+下载后解压至想保存的位置然后使用 Automator（自动操作）打开
+
+<img width="520" height="520" alt="截屏2025-08-06 01 26 06" src="https://github.com/user-attachments/assets/44a1123b-fe1c-4c17-b85f-79bf55efb636" />
+<img width="520" height="520" alt="截屏2025-08-06 01 26 39" src="https://github.com/user-attachments/assets/df481c9a-b5f6-47d8-89fd-911fa73cf9fa" />
+<img width="520" height="520" alt="截屏2025-08-06 01 27 21" src="https://github.com/user-attachments/assets/f65a37eb-3d43-4eae-a122-f8b3cfa42bec" />
+
+根据首行提示滑到中间分别修改两个脚本的具体配置并保存
+
+```
+	===== 配置项 =====
+	set deviceID to "mac" -- 你的设备 id, 唯一
+	set showName to "mac" -- 你的设备名称, 将显示在网页上
+	set secret to "绝对猜不出来的密码" -- 你的密钥
+	set endpoint to "https://al.u311533.nyat.app:32848/device/set" -- 你的完整 API 地址，以 `/device/set` 结尾 
+	
+	set ignoreAppNames to {"改成你想忽略的进程名", "两种忽略都支持部分匹配", "ControlCenter"}
+	set ignoreWindowTitles to {"改成你想忽略的窗口名", "输入法", "控制中心"}
+	set idleTimeoutSeconds to 10800 -- 设置窗口多久未变化上报未使用，默认3小时 单位秒
+	set inputIdleThresholdSeconds to 600 --  设置窗口未变化上报前提：鼠标空闲时间，只有鼠标也达标才会上报，默认10分钟 单位秒
+```
+
+然后在保存的位置双击启动`mac_device_sleepy_AS`给予辅助权限就能够后台检测窗口名称上报，关机前启动`mac_device_sleepy_AS_false`就可以停止主脚本并上报未在使用
+
+> [!WARNING]
+> *mac os对AppleScript权限给予有问题，请尽量保存运行后不要更改文件位置也不要再次更改内容*
+> 
+> 如果只上报进程名而不是窗口名说明权限有问题，请在 系统设置→隐私与安全性→辅助功能 里将本脚本删除再手动添加给予权限即可正常
+
+#### 加入启动项开机启动
+
+在 系统设置→通用→登录项→登录时打开 中将主脚本加入即可
 
 # CLI
 
