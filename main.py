@@ -516,9 +516,11 @@ def metrics():
 
 # region routes-status
 
-
 @app.route('/api/status/query')
 @cross_origin(c.main.cors_origins)
+def query_route():
+    return query()
+
 def query():
     '''
     获取当前状态
