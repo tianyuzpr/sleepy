@@ -1,20 +1,24 @@
 name: Readme Stuff
+
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
-  update-contributors:
+  contrib-readme-job:
     runs-on: ubuntu-latest
+    name: A job to automate contrib in readme
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Update Contributors List
-        uses: akhilmhdh/contributors-readme-action@v2.3.10
+      - name: Contribute List
+        uses: siiway/contributors-readme-action@v2.3.11
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          image_size: 80
+          use_username: true
+          commit_message: "[automatic] 更新 readme contrib 列表"
+          pr_title_on_protected: "[automatic] 更新 readme contrib 列表"
