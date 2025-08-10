@@ -10,7 +10,7 @@ from io import BytesIO
 from werkzeug.security import safe_join
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import JSON, Integer, String, Boolean, Text, DateTime
+from sqlalchemy import JSON, Integer, Float, String, Boolean, Text, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.exc import SQLAlchemyError
 from objtyping import to_primitive
@@ -38,8 +38,8 @@ class _MainData(db.Model):
     '''当前状态 id *(即 status_list 中的列表索引)*'''
     private_mode: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     '''是否开启隐私模式 *(启用时 /query 返回中的 `device` 替换为空字典)*'''
-    last_updated: Mapped[datetime] = mapped_column(DateTime, default=u.nowutc, onupdate=u.nowutc)
-    '''数据最后更新时间 (utc)'''
+    last_updated: Mapped[float] = mapped_column(Float, default=time, onupdate=time)
+    '''数据最后更新时间 (utc timestamp)'''
 
 
 class _DeviceStatusData(db.Model):
@@ -57,8 +57,8 @@ class _DeviceStatusData(db.Model):
     '''[可选] 设备状态文本 (如打开的应用名)'''
     fields: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     '''[可选] 设备的扩展字段'''
-    last_updated: Mapped[datetime] = mapped_column(DateTime, default=u.nowutc, onupdate=u.nowutc)
-    '''(本设备) 数据最后更新时间 (UTC)'''
+    last_updated: Mapped[float] = mapped_column(Float, default=time, onupdate=time)
+    '''(本设备) 数据最后更新时间 (utc timestamp)'''
 
 
 class _MetricsMetaData(db.Model):
@@ -240,7 +240,7 @@ class Data:
             self._throw(e)
 
     @property
-    def last_updated(self) -> datetime:
+    def last_updated(self) -> float:
         '''
         数据最后更新时间 (utc)
         '''
@@ -252,7 +252,7 @@ class Data:
             self._throw(e)
 
     @last_updated.setter
-    def last_updated(self, value: datetime):
+    def last_updated(self, value: float):
         try:
             with self._app.app_context():
                 maindata: _MainData = _MainData.query.first()  # type: ignore
@@ -375,7 +375,7 @@ class Data:
                 device.status = status or device.status
                 device.fields = u.deep_merge_dict(device.fields, fields)
                 db.session.commit()
-                self.last_updated = u.nowutc()
+                self.last_updated = time()
         except SQLAlchemyError as e:
             self._throw(e)
 
@@ -391,7 +391,7 @@ class Data:
                 if device:
                     db.session.delete(device)
                     db.session.commit()
-                    self.last_updated = u.nowutc()
+                    self.last_updated = time()
         except SQLAlchemyError as e:
             self._throw(e)
 
@@ -403,7 +403,7 @@ class Data:
             with self._app.app_context():
                 _DeviceStatusData.query.delete()
                 db.session.commit()
-                self.last_updated = u.nowutc()
+                self.last_updated = time()
         except SQLAlchemyError as e:
             self._throw(e)
 

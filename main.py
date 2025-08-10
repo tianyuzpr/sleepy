@@ -18,7 +18,7 @@ Security Report: https://sleepy.siiway.top/t/security
 try:
     # built-in
     import logging
-    from datetime import datetime, timedelta
+    from datetime import datetime, timedelta, UTC
     import time
     from urllib.parse import urlparse, parse_qs, urlunparse
     import json
@@ -379,7 +379,7 @@ def index():
         _dirname='cards',
         username=c.page.name,
         status=d.status_dict[1],
-        last_updated=d.last_updated.strftime(f'%Y-%m-%d %H:%M:%S') + ' (UTC+8)'
+        last_updated=datetime.fromtimestamp(d.last_updated, UTC).strftime(f'%Y-%m-%d %H:%M:%S') + ' (UTC+8)'
     )
     more_info_card: str = render_template(  # type: ignore
         'more_info.index.html',
@@ -545,7 +545,7 @@ def query():
         'time': datetime.now().timestamp(),
         'status': stinfo,
         'device': d.device_list,
-        'last_updated': d.last_updated.timestamp()
+        'last_updated': d.last_updated
     }
     # 如同时包含 metadata / metrics 返回
     if u.tobool(flask.request.args.get('meta', False)) if flask.request else False:

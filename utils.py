@@ -444,10 +444,3 @@ def deep_merge_dict(*dicts: dict) -> dict:
                     base[key] = value
 
     return base
-
-
-def nowutc() -> datetime:
-    '''
-    获取当前时间对象 (utc)
-    '''
-    return datetime.now(timezone.utc)

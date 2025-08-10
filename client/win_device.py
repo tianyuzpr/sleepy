@@ -85,7 +85,7 @@ _print_ = print
 def print(msg: str, **kwargs):
     '''
     修改后的 `print()` 函数，解决不刷新日志的问题
-    原: `_print_()`
+    - 原: `_print_()`
     '''
     msg = str(msg).replace('\u200b', '')
     try:
@@ -532,9 +532,9 @@ async def main():
         while True:
             await do_update()
             await asyncio.sleep(CHECK_INTERVAL)
-    except (KeyboardInterrupt, SystemExit) as e:
+    except (KeyboardInterrupt, SystemExit, asyncio.CancelledError) as e:
         # 如果中断或被 taskkill 则发送未在使用
-        debug(f'Interrupt: {e}')
+        debug(f'Interrupted / Cancelled: {e}')
         try:
             resp = await send_status(
                 using=False,
@@ -557,7 +557,9 @@ async def main():
             if resp.status_code != 200:
                 print(f'Error! Response: {resp.status_code} - {resp.json()}')
         except Exception as e:
-            print(f'Exception: {e}')
+            print(f'Error sending not using: {e}')
+        finally:
+            print(f'Bye.')
 
 
 if __name__ == '__main__':
