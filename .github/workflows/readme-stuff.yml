@@ -16,7 +16,7 @@ jobs:
       - name: Contribute List
         uses: siiway/contributors-readme-action@v2.3.11
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CONTRIBUTORS_BOT_SECRET }}
         with:
           image_size: 80
           use_username: true
