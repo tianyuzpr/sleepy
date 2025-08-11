@@ -11,7 +11,7 @@
 
 ```bash
 git pull # 拉取最新代码
-pip install -r requirements.txt # 安装依赖 (如果有新的)
+pip install -r requirements.txt # 安装依赖 (如果有新的, 也可用 uv sync 同步)
 ```
 
 更新完成，重新启动即可.
