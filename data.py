@@ -281,8 +281,6 @@ class Data:
     @property
     def _raw_device_list_dict(self) -> dict[str, dict[str, str | int | float | bool]]:
         devices = self._raw_device_list
-        for d in devices.values():
-            d.last_updated = d.last_updated.timestamp()  # type: ignore
         return to_primitive(devices, format_date_time=False)  # type: ignore
 
     @property

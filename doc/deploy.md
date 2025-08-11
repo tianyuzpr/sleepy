@@ -16,9 +16,6 @@
     - [卡在 Deploying?](#卡在-deploying)
     - [如何使用自定义域名](#如何使用自定义域名)
   - [Vercel 部署](#vercel-部署)
-  - [一键部署 (未测试)](#一键部署-未测试)
-    - [Linux](#linux)
-    - [Windows](#windows)
 
 ## 手动部署
 
@@ -31,7 +28,7 @@
 1. Clone 本仓库 *(也可先 Fork)*
 
 ```shell
-git clone --depth=1 -b main https://github.com/sleepy-project/sleepy.git
+git clone --depth 1 -b main https://github.com/sleepy-project/sleepy.git
 ```
 
 2. 安装依赖
@@ -176,38 +173,3 @@ CMD bash cfd.sh
 ![vercel-4](https://ghimg.siiway.top/sleepy/deploy/vercel-4.1.png)
 
 > 修改环境变量后需重新部署
-
-## 一键部署 (未测试)
-
-> [!WARNING]
-> 完全由 AI 生成, 未经任何测试, **不要使用此方式!!!**
-
-### Linux
-
-运行命令：
-
-```bash
-bash <(curl -s https://ghproxy.com/https://raw.githubusercontent.com/sleepy-project/sleepy/main/scripts/install.sh)
-```
-
-如果你的服务器不在中国大陆，可以去掉 `ghproxy.com/` 部分：
-
-```bash
-bash <(curl -s https://raw.githubusercontent.com/sleepy-project/sleepy/main/scripts/install.sh)
-```
-
-### Windows
-
-运行命令：
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-irm https://ghproxy.com/https://raw.githubusercontent.com/sleepy-project/sleepy/main/scripts/install.ps1 | iex
-```
-
-如果你的服务器不在中国大陆，可以去掉 `ghproxy.com/` 部分：
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-irm https://raw.githubusercontent.com/sleepy-project/sleepy/main/scripts/install.ps1 | iex
-```

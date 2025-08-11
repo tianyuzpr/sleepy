@@ -6,6 +6,8 @@
 
 [**功能**](#功能) / [**演示**](#preview) / [**部署**](#部署--更新) / [**服务端配置**](#服务器配置) / [**使用**](#使用) / [**Client**](#client) / [**API**](#api) / [**关于**](#关于)
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/sleepy-project/sleepy)
+
 ## 功能
 
 - [x] 自行设置在线状态 *(活着 / 似了 等, 也可 **[自定义](./setting/README.md#status_listjson)** 状态列表)*
@@ -15,8 +17,19 @@
 - [x] 支持 HTTPS (需要自行配置 SSL 证书)
 
 > [!TIP]
-> **最新 开发进度 / TODOs 见: [Discord][link-dc]** / [Telegram][link-tg] / [QQ][link-qq]<br/>
-> 如有 Bug / 建议, 可发 issue (**[Bug][link-issue-bug]** / **[Feature][link-issue-feature]**) 或选择上面的联系方式 *(注明来意)*.
+> 如有 Bug / 建议, 可发 issue (**[Bug][link-issue-bug]** / **[Feature][link-issue-feature]**) 或选择下面的联系方式 *(注明来意)*.
+
+### Working...
+
+我们正在使用 FastAPI 重构此项目, 请关注以下社交平台消息:
+
+- [Discord][link-dc]
+- [QQ][link-qq]
+- [Telegram][link-tg]
+
+预计将在 1-3 周内完成 *(希望吧)*
+
+如仍需使用此分支, 请仔细阅读本仓库的文档, 或找上面的 DeepWiki Ask.
 
 ### Preview
 
