@@ -52,46 +52,46 @@
     - [配置](#配置-2)
     - [使用](#使用-1)
     - [安卓低版本运行](#安卓低版本运行)
-  - [BrowserScript](#browserscript)
+    - [启动时报错](#启动时报错)
+  - [MagiskService](#magiskservice)
     - [配置](#配置-3)
-  - [HomeworkDevice](#homeworkdevice)
-    - [配置](#配置-4)
     - [使用](#使用-2)
-  - [CMDConsole](#cmdconsole)
-    - [配置](#配置-5)
+- [Linux](#linux)
+  - [LinuxScriptKDE](#linuxscriptkde)
+    - [配置](#配置-4)
     - [使用](#使用-3)
-  - [CmdConsoleMulti](#cmdconsolemulti)
-    - [配置](#配置-6)
+  - [LinuxScriptHyprland](#linuxscripthyprland)
+    - [配置](#配置-5)
     - [使用](#使用-4)
-- [IOSMacOS](#iosmacos)
+- [IOS/MacOS](#iosmacos)
   - [AppleShortcuts](#appleshortcuts)
     - [FullVer](#fullver)
     - [FastVer](#fastver)
-  - [AppleScript](#AppleScript)
-    - [mac_device_sleepy_AS](#mac_device_sleepy_AS)
+  - [AppleScript](#applescript)
+    - [mac\_device\_sleepy\_AS](#mac_device_sleepy_as)
       - [说明](#说明)
       - [使用](#使用-5)
       - [加入启动项开机启动](#加入启动项开机启动)
+- [CLI](#cli)
+  - [HomeworkDevice](#homeworkdevice)
+    - [配置](#配置-6)
+    - [使用](#使用-6)
+  - [CMDConsole](#cmdconsole)
+    - [配置](#配置-7)
+    - [使用](#使用-7)
+  - [CmdConsoleMulti](#cmdconsolemulti)
+    - [配置](#配置-8)
+    - [使用](#使用-8)
 - [Others](#others)
   - [MinecraftScript](#minecraftscript)
     - [Minescript](#minescript)
-    - [配置](#配置-7)
-    - [使用](#使用-5)
-    - [自启](#自启)
-  - [BrowserScript](#browserscript-1)
-    - [配置](#配置-8)
-    - [使用](#使用-6)
-  - [LinuxScriptHyprland](#linuxscripthyprland)
     - [配置](#配置-9)
-    - [使用](#使用-7)
-  - [MagiskService](#magiskservice)
-    - [配置](#配置-10)
-    - [使用](#使用-8)
-  - [Win\_Simple](#win_simple-1)
-    - [配置](#配置-11)
     - [使用](#使用-9)
+    - [自启](#自启)
+  - [BrowserScript](#browserscript)
+    - [配置](#配置-10)
   - [Zhixuewang](#zhixuewang)
-    - [配置](#配置-12)
+    - [配置](#配置-11)
     - [使用](#使用-10)
   - [Other repos](#other-repos)
 
@@ -102,10 +102,10 @@
 
 ## [WinDevice](./win_device.py)
 
-> by: [@wyf9](https://github.com/wyf9)
-> Co-authored-by: [@kmizmal](https://github.com/kmizmal)
-> Co-authored-by: [@pwnInt](https://github.com/pwnInt) - **^C / 鼠标空闲检测**
-> Co-authored-by: [@gongfuture](https://github.com/gongfuture) - **媒体信息获取**
+> by: [@wyf9](https://github.com/wyf9) <br/>
+> Co-authored-by: [@kmizmal](https://github.com/kmizmal) <br/>
+> Co-authored-by: [@pwnInt](https://github.com/pwnInt) - **^C / 鼠标空闲检测** <br/>
+> Co-authored-by: [@gongfuture](https://github.com/gongfuture) - **媒体信息获取** <br/>
 > Co-authored-by: [@LeiSureLyYrsc](https://github.com/LeiSureLyYrsc) - **异步支持**
 
 在 Windows 上自动更新设备状态
@@ -193,7 +193,8 @@ pip install psutil
 ## [AutoxjsScript](./autoxjs_device.js)
 
 > by: [@wyf9](https://github.com/wyf9) <br/>
-> Co-authored-by: [@NyaOH-Nahida](https://github.com/NyaOH-Nahida)
+> Co-authored-by: [@NyaOH-Nahida](https://github.com/NyaOH-Nahida) <br/>
+> Co-authored-by: [@makabaka-andy](https://github.com/makabaka-andy)
 
 使用 [Autox.js](https://web.archive.org/web/20241224233444/https://github.com/kkevsekk1/AutoX) 编写的安卓自动更新状态脚本
 
