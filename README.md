@@ -59,6 +59,9 @@
 
 *目前已有 [Windows](./client/README.md#windevice), [Linux](./client/README.md#linux), [IOS / MacOS](./client/README.md#iosmacos), [Android](./client/README.md#autoxjsscript), [油猴脚本](./client/README.md#browserscript) 等客户端*
 
+> [!IMPORTANT]
+> 每个客户端的标题可以 **点击跳转最新文件**, 不要使用固定 commit 的链接, 否则无法获取最新文件
+
 ## API
 
 详细的 API 文档见 [doc/api.md](./doc/api.md).

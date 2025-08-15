@@ -2,6 +2,9 @@
 
 此目录存储客户端 (用于更新状态/设备状态)
 
+> [!IMPORTANT]
+> 每个客户端的标题可以 **点击跳转最新文件**, 不要使用固定 commit 的链接, 否则无法获取最新文件
+
 **Windows**:
   - [WinDevice](#WinDevice) *(已安装 Python 推荐)*
   - [Win_Simple](#Win_Simple) *(未安装 Python 推荐)*
@@ -539,7 +542,7 @@ Links: [MCMod.cn](https://www.mcmod.cn/class/7594.html) / [Modrinth](https://mod
 python="C:\Program Files\Python312\python.exe"
 ```
 
-2. 将 [`mc_script.py`](./mc_script.py) 复制到此目录, 并改名为 `sleepy.py` (也可为其他名字)
+2. 将 `mc_script.py` 复制到此目录, 并改名为 `sleepy.py` (也可为其他名字)
 
 ### 配置
 
