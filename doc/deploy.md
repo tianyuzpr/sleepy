@@ -4,6 +4,7 @@
 2. **[Huggingface 部署](#huggingface-部署)** *(无服务器推荐)*
 3. [Vercel 部署](#vercel-部署) *(限制较多, 不推荐使用)*
 4. [一键部署](#一键部署-未测试) *(未测试, 不推荐使用)*
+5. [Docker 部署](#docker-部署) *(使用服务器部署推荐)*
 
 ## 快速跳转
 
@@ -16,6 +17,8 @@
     - [卡在 Deploying?](#卡在-deploying)
     - [如何使用自定义域名](#如何使用自定义域名)
   - [Vercel 部署](#vercel-部署)
+  - [Docker 部署](#docker-部署)
+    - [Docker Compose](#docker-compose)
 
 ## 手动部署
 
@@ -108,6 +111,8 @@ python3 start.py
 2. 在 `Settings` 页面底部 `Delete this Space` 处**删除**旧 Space
 3. 在 `Settings` -> `Rename or transfer this space` 将新 Space **重命名**为旧 Space 的名称
 
+</details>
+
 ### 如何使用自定义域名
 
 1. 到 [Zero Trust Dashboard](https://one.dash.cloudflare.com/?to=/:account/networks/tunnels/add/cfd_tunnel) 创建一个 Tunnel
@@ -173,3 +178,21 @@ CMD bash cfd.sh
 ![vercel-4](https://ghimg.siiway.top/sleepy/deploy/vercel-4.1.png)
 
 > 修改环境变量后需重新部署
+
+## Docker 部署
+
+### Docker Compose
+
+1. 克隆本仓库
+
+```bash
+git clone --depth 1 -b main https://github.com/sleepy-project/sleepy.git ./sleepy
+```
+
+2. 修改 [`docker-compose.yml`](../docker-compose.yml) 文件中的环境变量等配置
+
+3. 启动
+
+```bash
+docker-compose up -d
+```
