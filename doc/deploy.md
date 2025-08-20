@@ -183,7 +183,7 @@ CMD bash cfd.sh
 1. 克隆本仓库: 
 
   ```bash
-  git clone --depth 1 -b main https://github.com/sleepy-project/sleepy.git /path/to/sleepy
+  git clone --depth 1 -b main https://github.com/sleepy-project/sleepy.git /path/to/your/sleepy
   ```
 
 2. Docker-Cli 启动: 
