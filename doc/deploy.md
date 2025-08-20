@@ -17,6 +17,8 @@
     - [卡在 Deploying?](#卡在-deploying)
     - [如何使用自定义域名](#如何使用自定义域名)
   - [Vercel 部署](#vercel-部署)
+  - [Docker 部署](#docker-部署)
+    - [Docker Compose](#docker-compose)
 
 ## 手动部署
 
@@ -177,19 +179,20 @@ CMD bash cfd.sh
 
 > 修改环境变量后需重新部署
 
-
 ## Docker 部署
 
-1. 克隆本仓库: 
+### Docker Compose
 
-  ```bash
-  git clone --depth 1 -b main https://github.com/sleepy-project/sleepy.git /path/to/your/sleepy
-  ```
+1. 克隆本仓库
 
-2. Docker-Cli 启动: 
+```bash
+git clone --depth 1 -b main https://github.com/sleepy-project/sleepy.git ./sleepy
+```
 
-  ```bash
-  docker run -d -p 9010:9010 -v /path/to/your/sleepy:/sleepy -w /sleepy --restart always --name sleepy python:3.13 sh start.sh
-  ```
+2. 修改 [`docker-compose.yml`](../docker-compose.yml) 文件中的环境变量等配置
 
-> 注意: 修改 `-v` 参数中的 `/path/to/your/sleepy` 为你的项目路径
+3. 启动
+
+```bash
+docker-compose up -d
+```

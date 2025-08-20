@@ -1,9 +1,11 @@
-FROM python:3.13
+FROM python:3.13-slim
 
-WORKDIR /app
+WORKDIR /sleepy
 
 COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "server.py"]
+EXPOSE 9010
+
+CMD ["python", "main.py"]
