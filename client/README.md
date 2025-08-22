@@ -5,6 +5,8 @@
 > [!IMPORTANT]
 > 每个客户端的标题可以 **点击跳转最新文件**, 不要使用固定 commit 的链接, 否则无法获取最新文件
 
+> *我是真心建议你过段时间再用, 还在重构呢*
+
 **Windows**:
   - [WinDevice](#WinDevice) *(已安装 Python 推荐)*
   - [Win_Simple](#Win_Simple) *(未安装 Python 推荐)*
@@ -103,7 +105,7 @@
 
 # Windows
 
-## [WinDevice](./win_device.py)
+## [WinDevice](./win_device_ds.py)
 
 > by: [@wyf9](https://github.com/wyf9) <br/>
 > Co-authored-by: [@kmizmal](https://github.com/kmizmal) <br/>
@@ -157,12 +159,12 @@ pip install psutil
 
 #### 2. 自启脚本
 
-`win_device_autostart.vbs`
+`win_device_ds_autostart.vbs`
 
 自启脚本，使启动后不显示窗口 *(适用于不想用第三方软件托管进程的情况下)*
 
-1. 将 `win_device_autostart.vbs` 放入 `shell:startup` *(开始菜单 -> 启动)* 文件夹
-2. 将 `win_device.py` 放入 `%UserProfile%` *(用户主目录)* 文件夹
+1. 将 `win_device_ds_autostart.vbs` 放入 `shell:startup` *(开始菜单 -> 启动)* 文件夹
+2. 将 `win_device_ds.py` 放入 `%UserProfile%` *(用户主目录)* 文件夹
 
 > [!TIP]
 > `shell:startup` 和 `%UserProfile%` 两个文件夹可用运行窗口 (`Win+R`) 打开
