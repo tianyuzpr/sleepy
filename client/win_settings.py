@@ -7,7 +7,10 @@ import json
 import time
 
 from win_device import SERVER, SECRET, DEVICE_ID, DEVICE_SHOW_NAME
-from win_device import send_status as wd_send_status
+# from win_device import send_status as wd_send_status
+
+VERSION = "v1.0.1"
+
 
 
 def main():
@@ -31,11 +34,11 @@ def main():
     api_menu.add_command(label="获取状态", command=get_status)
     api_menu.add_command(label="获取可用状态列表", command=get_status_list)
     api_menu.add_command(label="获取统计信息", command=get_metrics)
-    api_menu.add_command(label="设置状态(活着/似了)", command=yonghuchufa_set_status)
-    api_menu.add_command(label="设置单个设备状态", command=yonghuchufa_set_device_status)
-    api_menu.add_command(label="删除设备", command=yonghuchufa_delete_device)
-    api_menu.add_command(label="清除所有设备", command=yonghuchufa_clear_devices)
-    api_menu.add_command(label="隐私模式", command=yonghuchufa_private_mode)
+    api_menu.add_command(label="设置状态(活着/似了)", command=set_status)
+    api_menu.add_command(label="设置单个设备状态", command=send_status)
+    api_menu.add_command(label="删除设备", command=delete_device)
+    api_menu.add_command(label="清除所有设备", command=clear_devices)
+    api_menu.add_command(label="隐私模式", command=private_mode)
     
     file_menu = tk.Menu(menu, tearoff=0)
     menu.add_cascade(label="程序", menu=file_menu)
@@ -43,7 +46,8 @@ def main():
     file_menu.add_command(label="退出", command=exit_)
     
     # 创建标题
-    title = tk.Label(root, text="Sleepy Settings v1.0", font=("Arial", 20))
+    title = tk.Label(root, text=f"Sleepy Settings {VERSION}", font=("Arial", 20))
+
     title.pack(pady=20)
     
     # 创建日志窗口(整个窗口)
@@ -59,6 +63,19 @@ def main():
     log_scroll = tk.Scrollbar(log_frame, command=log_text.yview)
     log_scroll.pack(side=tk.RIGHT, fill=tk.Y)
     log_text.config(yscrollcommand=log_scroll.set)
+    
+    # 初始化日志
+    log_message("INFO", f'''
+    Welcome to Sleepy Windows Settings
+    owner: CR400AFC2214, wyf9
+    email: tianyu@siiway.top
+    website: https://siiway.top 
+    contact us: https://siiway.top/about/contact.html
+    version: {VERSION}
+    Please first edit your device id, show name, your server url and secret in win_device.py and run win_device.py
+    Then you can use this settings to set your status.
+    ''')
+
 
     # 进入主循环
     root.mainloop()
@@ -77,81 +94,61 @@ def log_message(level, message):
     log_text.insert(tk.END, log_entry)
     log_text.config(state=tk.DISABLED)
     log_text.see(tk.END)
-
-
-def yonghuchufa_clear_devices():
+def private_mode(mode = None):
+    """隐私模式请求"""
+    if mode == None:
+        mode = messagebox.askyesno("隐私模式", "是否开启隐私模式？")
+    headers = {"Authorization": f"Bearer {SECRET}"}
+    params = {"isprivate": mode}
+    response = requests.get(f"{SERVER}/api/device/private", headers=headers, params=params)
+    if response.status_code == 200:
+        log_message("INFO", "隐私模式设置成功")
+        return {"success": True}
+    else:
+        error_msg = f"主人好好反省一下自己干了什么喵：{response.status_code}"
+        log_message("ERROR", error_msg)
+        return {"success": False}
+    
+    
+    
+def clear_devices():
     """清除所有设备"""
     # 发送清除请求
     headers = {"Authorization": f"Bearer {SECRET}"}
     response = requests.get(f"{SERVER}/api/device/clear", headers=headers)
-
-    if response.status_code == 200:
-        log_message("INFO", f"清除所有设备成功: {response.text}")
-        messagebox.showinfo("成功", "所有设备清除成功")
-    else:
-        error_msg = f"主人好好反省一下自己干了什么喵：{response.status_code} - {response.text}"
-        log_message("ERROR", error_msg)
-        messagebox.showerror("错误", error_msg)
-
-
-def yonghuchufa_private_mode():
-    """隐私模式设置"""
-    # 发送隐私模式请求
-    isprivate = messagebox.askyesno("隐私模式", "是否开启隐私模式?")
-
-    headers = {"Authorization": f"Bearer {SECRET}"}
-    response = requests.get(
-        f"{SERVER}/api/device/private?private={isprivate}", headers=headers
-    )
-
-    if response.status_code == 200:
-        log_message("INFO", f"隐私模式设置成功: {response.text}")
-        messagebox.showinfo("成功", "隐私模式设置成功")
-    else:
-        error_msg = f"主人好好反省一下自己干了什么喵：{response.status_code} - {response.text}"
-        log_message("ERROR", error_msg)
-        messagebox.showerror("错误", error_msg)
-
-
-def yonghuchufa_delete_device():
-    """删除设备"""
-    # 获取设备ID
-    device_id = simpledialog.askstring("输入设备ID", "请输入设备ID")
-    if not device_id:
-        messagebox.showerror("错误", "设备ID不能为空")
-        return
     
+    if response.status_code == 200:
+        log_message("INFO", "清除所有设备成功")
+        return {"success": True}
+    else:
+        error_msg = f"主人好好反省一下自己干了什么喵：{response.status_code}"
+        log_message("ERROR", error_msg)
+        return {"success": False, "error": error_msg}
+
+
+
+    
+def delete_device(device_id = None):
+    """删除设备"""
+    if device_id is None:
+        device_id = simpledialog.askstring("输入设备ID", "请输入设备ID")
+        if not device_id:
+            messagebox.showerror("错误", "设备ID不能为空")
+            return
     # 发送删除请求
     headers = {"Authorization": f"Bearer {SECRET}"}
-    response = requests.get(
-        f"{SERVER}/api/device/remove?name={device_id}", headers=headers
-    )
-
-    if response.status_code == 200:
-        log_message("INFO", f"设备删除成功: {response.text}")
-        messagebox.showinfo("成功", "设备删除成功")
-    else:
-        error_msg = f"主人好好反省一下自己干了什么喵：{response.status_code} - {response.text}"
-        log_message("ERROR", error_msg)
-        messagebox.showerror("错误", error_msg)
-
-
-def yonghuchufa_set_device_status():
-    """设置单个设备状态"""
-    # 获取是否正在使用?
-    status = messagebox.askyesno("是否正在使用", "是否正在使用?")
-
-    # 获取上传的名称
-    name = simpledialog.askstring("输入应用名称名称", "请输入应用名称")
-    if not name:
-        messagebox.showerror("错误", "应用名称不能为空")
-        return
+    params = {"id": f"{device_id}"}
+    response = requests.get(f"{SERVER}/api/device/remove", headers=headers, params=params)
     
-    response = send_status(status, name)
-    return response
+    if response.status_code == 200:
+        log_message("INFO", f"删除设备成功: {device_id}")
+        return {"success": True, "device_id": device_id}
+    else:
+        error_msg = f"主人好好反省一下自己干了什么喵：{response.status_code}"
+        log_message("ERROR", error_msg)
+        return {"success": False, "error": error_msg}
 
-
-def yonghuchufa_set_status():
+def set_status(status_code = None):
     """设置状态"""
     # 获取状态列表
     status_list_response = get_status_list()
@@ -159,11 +156,12 @@ def yonghuchufa_set_status():
         return
 
     # 获取状态码并确保是整数
-    try:
-        status_code = int(simpledialog.askinteger("输入状态码", "请输入状态码（数字）"))
-    except (ValueError, TypeError):
-        messagebox.showerror("错误", "请输入有效的状态码（数字）")
-        return
+    if status_code is None:
+        try:
+            status_code = int(simpledialog.askinteger("输入状态码", "请输入状态码（数字）"))
+        except (ValueError, TypeError):
+            messagebox.showerror("错误", "请输入有效的状态码（数字）")
+            return
 
     # 使用 GET 方法带参数
     headers = {"Authorization": f"Bearer {SECRET}"}
@@ -232,11 +230,36 @@ def get_status(meta=False, metrics=False):
         return {"主人好好反省一下自己干了什么喵": error_msg}
 
 
-def send_status(using: bool, status: str):
+def send_status(using = None, status = None, device_id = None, show_name = None):
+
     """发送状态"""
-    data = {
-        "id": DEVICE_ID,
-        "show_name": DEVICE_SHOW_NAME,
+
+    
+    if using == None:
+        using = messagebox.askyesno("是否正在使用？")
+    if status == None:
+        status = simpledialog.askstring("输入应用", "请输入应用名称")
+    if device_id == None:
+        device_id = simpledialog.askstring("输入设备ID", "请输入设备ID")
+    # if show_name == None:
+    #     show_name = simpledialog.askstring("输入显示名称", "请输入显示名称")
+    # 因为我不确定用户会不会在这里创建设备，但是w9说
+    # wyf9: 08-29 14:16:59
+    # 第一次创建必须带 show_name
+    # wyf9: 08-29 14:17:10
+    # 第二次就只需要带更改的数据了
+    # 所以为了节省用户时间我就不添加showname输入了
+    # qwq
+    if show_name == None:
+        data = {
+        "id": device_id,
+        "using": using,
+        "status": status
+    }
+    else:
+        data = {
+        "id": device_id,
+        "show_name": show_name,
         "using": using,
         "status": status
     }
@@ -266,7 +289,8 @@ def exit_():
     if messagebox.askokcancel("退出", "主人确定要退出喵？"):
         if messagebox.askokcancel("退出", "主人退出时是否设置状态为离线喵？"):
             # 发送请求
-            send_status(using=False, status="未在使用")
+            send_status(using=False, status="未在使用", device_id=DEVICE_ID, show_name=DEVICE_SHOW_NAME)
+
             exit()
         else:
             exit()
@@ -274,7 +298,7 @@ def exit_():
 
 def shutdown():
     """注销时调用"""
-    send_status(using=False, status="未在使用")
+    send_status(using=False, status="未在使用", device_id=DEVICE_ID, show_name=DEVICE_SHOW_NAME)
 
 
 if __name__ == "__main__":
