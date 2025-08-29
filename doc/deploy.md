@@ -90,8 +90,8 @@ python3 start.py
 
 ![huggingface-5](https://ghimg.siiway.top/sleepy/deploy/huggingface-5.1.png)
 
-2. 在复制页面设置 secret 和页面信息等环境变量 *[**[配置示例](../.env.example)**]*
-3. 点击部署，等待完成后点击右上角三点 -> `Embed this space`，即可获得你的部署地址 *(类似于: <https://wyf9-sleepy.hf.space>)*
+1. 在复制页面设置 secret 和页面信息等环境变量 **([配置说明](./config.md))**
+2. 点击部署，等待完成后点击右上角三点 -> `Embed this space`，即可获得你的部署地址 *(类似于: <https://wyf9-sleepy.hf.space>)*
 
 > [!IMPORTANT]
 > **在创建时请务必选择 Space 类型为公开 (`Public`)，否则无法获取部署地址 (他人无法访问)!** <br/>
@@ -114,6 +114,9 @@ python3 start.py
 </details>
 
 ### 如何使用自定义域名
+
+> [!WARNING]
+> ***在 HF Space 中使用 Cloudflared 可能会被封号, 请自行承担风险.***
 
 1. 到 [Zero Trust Dashboard](https://one.dash.cloudflare.com/?to=/:account/networks/tunnels/add/cfd_tunnel) 创建一个 Tunnel
 
