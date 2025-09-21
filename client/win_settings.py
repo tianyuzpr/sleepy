@@ -1,8 +1,6 @@
 import requests
 import tkinter as tk
-from time import sleep
 from tkinter import messagebox, simpledialog
-from os import system
 import json
 import time
 
@@ -158,7 +156,10 @@ def set_status(status_code = None):
     # 获取状态码并确保是整数
     if status_code is None:
         try:
-            status_code = int(simpledialog.askinteger("输入状态码", "请输入状态码（数字）"))
+            raw_status = simpledialog.askinteger("输入状态码", "请输入状态码（数字）")
+            if not raw_status:
+                raise ValueError
+            status_code = int()
         except (ValueError, TypeError):
             messagebox.showerror("错误", "请输入有效的状态码（数字）")
             return
@@ -280,7 +281,7 @@ def about():
     """显示关于窗口"""
     messagebox.showinfo(
         "关于", 
-        "Sleepy Windows Settings\n作者：CR400AFC2214, wyf9\n邮箱：tianyu@siiway.top\n官网：https://siiway.top \n联系我们：https://siiway.top/about/contact.html"
+        "Sleepy Windows Settings\n作者：CR400AFC2214\n邮箱：tianyu@siiway.top"
     )
 
 
