@@ -10,6 +10,7 @@
 **Windows**:
   - [WinDevice](#WinDevice) *(已安装 Python 推荐)*
   - [Win_Simple](#Win_Simple) *(未安装 Python 推荐)*
+  - [Win Fast Settings](#win-fast-settings)
 
 **Android**:
   - [AutoxjsScript](#AutoxjsScript) *(无需 Root, 需安装额外软件)*
@@ -44,10 +45,13 @@
   - [WinDevice](#windevice)
     - [配置](#配置)
     - [依赖安装](#依赖安装)
+    - [启动](#启动)
     - [自启动](#自启动)
       - [1. PM2](#1-pm2)
       - [2. 自启脚本](#2-自启脚本)
     - [无法获取网易云媒体信息](#无法获取网易云媒体信息)
+  - [Win Fast Settings](#win-fast-settings)
+    - [启动](#启动-1)
   - [Win\_Simple](#win_simple)
     - [配置](#配置-1)
     - [使用](#使用)
@@ -144,6 +148,12 @@ pip install winrt.windows.media.control winrt.windows.foundation
 pip install psutil
 ```
 
+### 启动
+
+```bat
+python win_device.py
+```
+
 ### 自启动
 
 有两种方式:
@@ -175,6 +185,23 @@ pip install psutil
 
 **解决方法**: 安装 [BetterNCM](https://github.com/std-microblock/BetterNCM)，并安装 `InfLink` 插件，启用其中的 `SMTC` 功能即可正常获取
 
+## Win Fast Settings
+
+> by: [@CR400AFC2214](https://github.com/tianyuzpr)
+
+这是一个基于 win_device.py 的快速调整 sleepy 设置的小脚本，基于 tkinter
+
+> [!WARNING]
+> 本 client 基于 **[WinDevice](#windevice), 请确保您在使用前将 win_device.py 放在同一文件夹下, 并已经完成了在 win_device.py 中的配置!**
+
+额外的依赖: `requests`
+
+### 启动
+
+```bat
+python win_settings.py
+```
+
 ## [Win_Simple](./Win_Simple/dist/Win_Simple.exe)
 
 > by: [@kmizmal](https://github.com/kmizmal) <br/>
@@ -198,7 +225,7 @@ pip install psutil
 ## [AutoxjsScript](./autoxjs_device.js)
 
 > by: [@wyf9](https://github.com/wyf9) <br/>
-> Co-authored-by: [@NyaOH-Nahida](https://github.com/NyaOH-Nahida) <br/>
+> Co-authored-by: [@VanillaNahida](https://github.com/VanillaNahida) <br/>
 > Co-authored-by: [@makabaka-andy](https://github.com/makabaka-andy)
 
 使用 [Autox.js](https://web.archive.org/web/20241224233444/https://github.com/kkevsekk1/AutoX) 编写的安卓自动更新状态脚本

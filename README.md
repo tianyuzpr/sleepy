@@ -19,6 +19,10 @@
 > [!TIP]
 > 如有 Bug / 建议, 可发 issue (**[Bug][link-issue-bug]** / **[Feature][link-issue-feature]**) 或选择下面的联系方式 *(注明来意)*.
 
+## 文档（Beta）
+
+https://sleepy.wss.moe
+
 ### Working...
 
 我们正在使用 FastAPI 重构此项目, 请关注以下社交平台消息:
@@ -106,8 +110,8 @@
 
 ---
 
-[link-dc]: https://sleepy.siiway.top/t/dc
-[link-tg]: https://sleepy.siiway.top/t/tgc
-[link-qq]: https://sleepy.siiway.top/t/qq
-[link-issue-bug]: https://sleepy.siiway.top/t/bug
-[link-issue-feature]: https://sleepy.siiway.top/t/feature
+[link-dc]: https://sleepy.wss.moe/dc
+[link-tg]: https://sleepy.wss.moe/tgc
+[link-qq]: https://sleepy.wss.moe/qq
+[link-issue-bug]: https://sleepy.wss.moe/bug
+[link-issue-feature]: https://sleepy.wss.moe/feature
